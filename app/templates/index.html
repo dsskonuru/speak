@@ -1,10 +1,12 @@
 <!-- Main Page Template -->
 
-<html>
-  <head>
-      <title>{{ title }} - Speak</title>
-  </head>
-  <body>
-    <h1>Hello, {{user.username}}!</h1>
-  </body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Hi, {{ user.username }}!</h1>
+  {% for post in posts %}
+  <div><p>{{ post.author.username }} says: <b>{{ post.body }}</b></p></div>
+  {% endfor %}
+{% endblock %}
+
+<!-- when Jinga2 is asked to render index.html it will embed base.html inside -->

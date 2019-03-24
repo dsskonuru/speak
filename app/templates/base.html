@@ -1,0 +1,16 @@
+<html>
+  <head>
+    {% if title %}
+    <title>{{ title }}</title>
+    {% else %}
+    <title>Welcome to Speak</title>
+    {% endif %}
+  </head>
+  <body>
+      <div>Speak: <a href="/index">Home</a></div>
+      <hr>
+      {% block content %}{% endblock %}
+<!-- block control statement is used to define place where derived templates
+  can insert themselves -->
+  </body>
+</html>
