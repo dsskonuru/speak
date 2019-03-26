@@ -35,17 +35,17 @@ engine = pyttsx3.init()
 #engine.setProperty('volume', 10.0)
 #rate = engine.getProperty('rate')
 #engine.setProperty('rate', rate - 25
-engine.say('Good Morning.')
+engine.say('Good Evening.')
 engine.runAndWait()
 
 # list of preset questions
 greetings = ['hey there', 'hello', 'hi', 'Hai', 'hey!', 'hey']
-question = ['How are you?', 'How are you doing?']
+question = ['How are you?', 'How are you doing?', 'how are you', 'how are you doing']
 responses = ['Okay', "I'm fine"]
 var1 = ['who made you', 'who created you']
 var2 = ['I was created by Kaka right in his computer.', 'Kaka', 'Some guy whom Ill never get to know.']
 var3 = ['what time is it', 'what is the time', 'time']
-var4 = ['who are you', 'what is you name']
+var4 = ['who are you', 'what is your name']
 cmd1 = ['open browser', 'open google']
 cmd2 = ['play music', 'play songs', 'play a song', 'open music player']
 cmd3 = ['tell a joke', 'tell me a joke', 'say something funny', 'tell something funny']
@@ -98,47 +98,46 @@ while True:
 
             elif r.recognize_google(audio) in question:
                 #s2t('I am fine')
-                engine.say('I am fine')
                 print('I am fine')
+                engine.say('I am fine')
                 engine.runAndWait()
 
             elif r.recognize_google(audio) in var1:
                 reply = random.choice(var2)
                 #s2t(reply)
-                engine.say('I was made by edward')
                 print(reply)
+                engine.say('I was made by Kaka')
                 engine.runAndWait()
 
             elif r.recognize_google(audio) in cmd9:
                 #s2t(random.choice(repfr9))
-                engine.say(random.choice(repfr9))
                 print(random.choice(repfr9))
+                engine.say(random.choice(repfr9))
                 engine.runAndWait()
 
             elif r.recognize_google(audio) in cmd7:
                 reply=random.choice(colrep)
-                #s2t(reply)
-                engine.say('It keeps changing every micro second')
-                print('It keeps changing every micro second')
                 print(reply)
+                #s2t(reply)
+                engine.say(reply)
                 engine.runAndWait()
 
             elif r.recognize_google(audio) in cmd8:
-
                 reply=random.choice(colrep)
-                #s2t(reply)
-                engine.say('It keeps changing every micro second')
-                print('It keeps changing every micro second')
                 print(reply)
+                #s2t(reply)
+                engine.say(reply)
                 engine.runAndWait()
 
             elif r.recognize_google(audio) in cmd2:
+                print('playing music')
                 mixer.init()
                 mixer.music.load("\home\dsskonuru\Desktop\welshly_arms_legendary_official_audio.mp3")
                 mixer.music.play()
 
             elif r.recognize_google(audio) in var4:
                 #s2t('I am Duggi your personal AI assistant')
+                print('I am Duggi your personal AI assistant')
                 engine.say('I am Duggi your personal AI assistant')
                 engine.runAndWait()
 
@@ -162,18 +161,17 @@ while True:
                 w.get_temperature('celsius')
 
                 print(w)
-                print(w.get_wind())
+                #print(w.get_wind())
                 print(w.get_humidity())
                 print(w.get_temperature('celsius'))
 
                 #s2t(w.get_wind())
-                engine.say(w.get_wind())
-                engine.runAndWait()
+                #engine.say(w.get_wind())
+                #engine.runAndWait()
 
                 engine.say('humidity')
                 #s2t('humidity')
                 engine.runAndWait()
-
                 engine.say(w.get_humidity())
                 #s2t(w.get_humidity())
                 engine.runAndWait()
@@ -181,7 +179,6 @@ while True:
                 engine.say('temperature')
                 #s2t('temperature')
                 engine.runAndWait()
-
                 engine.say(w.get_temperature('celsius'))
                 #s2t(w.get_temperature('celsius'))
                 engine.runAndWait()
@@ -194,10 +191,11 @@ while True:
                 engine.runAndWait()
 
             elif r.recognize_google(audio) in cmd1:
-                webbrowser.open('www.google.com')
+                webbrowser.open_new('www.google.com', new=0, autoraise=True)
 
             elif r.recognize_google(audio) in cmd3:
                 jokrep = random.choice(jokes)
+                print(jokrep)
                 engine.say(jokrep)
                 #s2t(jokrep)
                 engine.runAndWait()
