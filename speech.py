@@ -190,8 +190,8 @@ while True:
                 #s2t(now.strftime("The time is %H:%M"))
                 engine.runAndWait()
 
-            elif r.recognize_google(audio) in cmd1:
-                webbrowser.open_new('www.google.com', new=0, autoraise=True)
+            #elif r.recognize_google(audio) in cmd1:
+            #    webbrowser.open_new('www.google.com')
 
             elif r.recognize_google(audio) in cmd3:
                 jokrep = random.choice(jokes)
