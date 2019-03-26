@@ -5,7 +5,10 @@ pip3 install SpeechRecognition
 pip3 install pygame -
 pip3 install pyown - OpenWeatherMaps
 pip3 install pyaudio - mic interface
+<<<<<<< HEAD
 sudo apt-get python-pyaudio, espeak
+=======
+>>>>>>> 3feaea0f62b142c0e46f54daa89809fa5f0620d2
 """
 
 import random # to generate random replies
