@@ -7,8 +7,23 @@
     {% endif %}
   </head>
   <body>
-      <div>Speak: <a href="/index">Home</a></div>
+      <div>
+        Speak:
+        <a href="/index">Home</a>
+        <a href="/login">Login</a>
+      </div>
       <hr>
+      {% with messages = get_flashed_messages() %}
+<!-- when flashed messages are requested once through get_flashed_messages
+function they are removed from the message list -->
+      {% if messages %}
+      <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      {% endwith %}
       {% block content %}{% endblock %}
 <!-- block control statement is used to define place where derived templates
   can insert themselves -->
