@@ -5,10 +5,9 @@ pip3 install SpeechRecognition
 pip3 install pygame -
 pip3 install pyown - OpenWeatherMaps
 pip3 install pyaudio - mic interface
-<<<<<<< HEAD
 sudo apt-get python-pyaudio, espeak
-=======
->>>>>>> 3feaea0f62b142c0e46f54daa89809fa5f0620d2
+pip3 install gTTS
+pip3 install cffi, setuptools, numpy, simpleaudio
 """
 
 import random # to generate random replies
@@ -18,6 +17,11 @@ import pyttsx3
 import wikipedia
 from pygame import mixer
 import speech_recognition as sr
+
+from gtts import gTTS
+from io import BytesIO
+
+import os
 
 # calibrating the text to speech engine
 engine = pyttsx3.init()
@@ -33,7 +37,7 @@ greetings = ['hey there', 'hello', 'hi', 'Hai', 'hey!', 'hey']
 question = ['How are you?', 'How are you doing?']
 responses = ['Okay', "I'm fine"]
 var1 = ['who made you', 'who created you']
-var2 = ['I_was_created_by_Kaka_right_in_his_computer.', 'Kaka', 'Some_guy_whom_i_never_got_to_know.']
+var2 = ['I was created by Kaka right in his computer.', 'Kaka', 'Some guy whom Ill nevergot to know.']
 var3 = ['what time is it', 'what is the time', 'time']
 var4 = ['who are you', 'what is you name']
 cmd1 = ['open browser', 'open google']
@@ -50,6 +54,16 @@ cmd9 = ['thank you']
 repfr9 = ['youre welcome', 'glad i could help you']
 
 # calibrating the speech_recognition engine
+
+def s2t(text):
+    mp3_fp = BytesIO()
+    tts = gTTS(text, 'en')
+    tts.write_to_fp(mp3_fp)
+
+    mixer.init()
+    mixer.music.load('mp3_fp')
+    mixer.music.play()
+
 while True:
     now = datetime.datetime.now()
     r = sr.Recognizer()
@@ -57,115 +71,134 @@ while True:
         print("Tell me something: ")
         audio = r.listen(source)
         try:
-            print("You said:-" + r.recognize_google(audio))
+            text="You said:-" + r.recognize_google(audio)
+            s2t(text)
+            print(text)
+
+
+            # Loop code with random and wikipedia
+            if r.recognize_google(audio) in greetings:
+                random_greeting = random.choice(greetings)
+                s2t(random_greeting)
+                #engine.say(random_greeting)
+                print(random_greeting)
+                engine.runAndWait()
+
+            elif r.recognize_google(audio) in question:
+                s2t('I am fine')
+                #engine.say('I am fine')
+                print('I am fine')
+                engine.runAndWait()
+
+            elif r.recognize_google(audio) in var1:
+                reply = random.choice(var2)
+                s2t(reply)
+                #engine.say('I was made by edward')
+                print(reply)
+                engine.runAndWait()
+
+            elif r.recognize_google(audio) in cmd9:
+                s2t(random.choice(repfr9))
+                #engine.say(random.choice(repfr9))
+                print(random.choice(repfr9))
+                engine.runAndWait()
+
+            elif r.recognize_google(audio) in cmd7:
+                reply=random.choice(colrep)
+                s2t(reply)
+                #engine.say('It keeps changing every micro second')
+                print('It keeps changing every micro second')
+                print(reply)
+                engine.runAndWait()
+
+            elif r.recognize_google(audio) in cmd8:
+
+                reply=random.choice(colrep)
+                s2t(reply)
+                #engine.say('It keeps changing every micro second')
+                print('It keeps changing every micro second')
+                print(reply)
+                engine.runAndWait()
+
+            elif r.recognize_google(audio) in cmd2:
+                mixer.init()
+                mixer.music.load("\home\dsskonuru\Desktop\welshly_arms_legendary_official_audio.mp3")
+                mixer.music.play()
+
+            elif r.recognize_google(audio) in var4:
+                s2t('I am Duggi your personal AI assistant')
+                engine.runAndWait()
+
+            elif r.recognize_google(audio) in cmd4:
+                webbrowser.open('www.youtube.com')
+
+            elif r.recognize_google(audio) in cmd6:
+                print('see you later')
+                s2t('see you later')
+                engine.runAndWait()
+                exit()
+
+            elif r.recognize_google(audio) in cmd5:
+                owm = pyowm.OWM('3f8e79e03a61b67e4542ef3b9892bd8e')
+                observation = owm.weather_at_place('Hyderabad, IN')
+                observation_list = owm.weather_around_coords(17.5418, 78.3868)
+                w = observation.get_weather()
+                w.get_wind()
+                w.get_humidity()
+                w.get_temperature('celsius')
+
+                print(w)
+                print(w.get_wind())
+                print(w.get_humidity())
+                print(w.get_temperature('celsius'))
+
+                s2t(w.get_wind())
+                #engine.say(w.get_wind())
+                engine.runAndWait()
+
+                #engine.say('humidity')
+                s2t('humidity')
+                engine.runAndWait()
+                #engine.say(w.get_humidity())
+                s2t(w.get_humidity())
+                engine.runAndWait()
+
+                #engine.say('temperature')
+                s2t('temperature')
+                engine.runAndWait()
+                #engine.say(w.get_temperature('celsius'))
+                s2t(w.get_temperature('celsius'))
+                engine.runAndWait()
+
+            elif r.recognize_google(audio) in var3:
+                print("Current date and time : ")
+                print(now.strftime("The time is %H:%M"))
+                #engine.say(now.strftime("The time is %H:%M"))
+                s2t(now.strftime("The time is %H:%M"))
+                engine.runAndWait()
+
+            elif r.recognize_google(audio) in cmd1:
+                webbrowser.open('www.google.com')
+
+            elif r.recognize_google(audio) in cmd3:
+                jokrep = random.choice(jokes)
+                #engine.say(jokrep)
+                s2t(jokrep)
+                engine.runAndWait()
+
+            else:
+                #engine.say("please wait")
+                s2t('please wait')
+                engine.runAndWait()
+                print(wikipedia.summary(r.recognize_google(audio)))
+                #engine.say(wikipedia.summary(r.recognize_google(audio)))
+                s2t(wikipedia.summary(r.recognize_google(audio)))
+                engine.runAndWait()
+                userInput3 = input("or else search in google")
+                webbrowser.open_new('www.google.com/search?q=' + userInput3)
+
         except sr.UnknownValueError:
             print("Could not understand audio")
-            engine.say('I didnt get that.')
+            #engine.say('I didnt get that.')
+            s2t('I didnt get that.')
             engine.runAndWait()
-
-# Loop code with random and wikipedia
-if r.recognize_google(audio) in greetings:
-   random_greeting = random.choice(greetings)
-   print(random_greeting)
-   engine.say(random_greeting)
-   engine.runAndWait()
-
-elif r.recognize_google(audio) in question:
-   engine.say('I am fine')
-   engine.runAndWait()
-   print('I am fine')
-
-elif r.recognize_google(audio) in var1:
-   engine.say('I was made by edward')
-   engine.runAndWait()
-   reply = random.choice(var2)
-   print(reply)
-
-elif r.recognize_google(audio) in cmd9:
-   print(random.choice(repfr9))
-   engine.say(random.choice(repfr9))
-   engine.runAndWait()
-
-elif r.recognize_google(audio) in cmd7:
-   print(random.choice(colrep))
-   engine.say(random.choice(colrep))
-   engine.runAndWait()
-   print('It keeps changing every micro second')
-   engine.say('It keeps changing every micro second')
-   engine.runAndWait()
-
-elif r.recognize_google(audio) in cmd8:
-   print(random.choice(colrep))
-   engine.say(random.choice(colrep))
-   engine.runAndWait()
-   print('It keeps changing every micro second')
-   engine.say('It keeps changing every micro second')
-   engine.runAndWait()
-
-elif r.recognize_google(audio) in cmd2:
-   mixer.init()
-   mixer.music.load("\home\dsskonuru\Desktop\welshly_arms_legendary_official_audio.mp3")
-   mixer.music.play()
-
-elif r.recognize_google(audio) in var4:
-   engine.say('I am Duggi your personal AI assistant')
-   engine.runAndWait()
-
-elif r.recognize_google(audio) in cmd4:
-    webbrowser.open('www.youtube.com')
-
-elif r.recognize_google(audio) in cmd6:
-    print('see you later')
-    engine.say('see you later')
-    engine.runAndWait()
-    exit()
-
-elif r.recognize_google(audio) in cmd5:
-    owm = pyowm.OWM('3f8e79e03a61b67e4542ef3b9892bd8e')
-    observation = owm.weather_at_place('Hyderabad, IN')
-    observation_list = owm.weather_around_coords(17.5418, 78.3868)
-    w = observation.get_weather()
-    w.get_wind()
-    w.get_humidity()
-    w.get_temperature('celsius')
-
-    print(w)
-    print(w.get_wind())
-    print(w.get_humidity())
-    print(w.get_temperature('celsius'))
-
-    engine.say(w.get_wind())
-    engine.runAndWait()
-
-    engine.say('humidity')
-    engine.runAndWait()
-    engine.say(w.get_humidity())
-    engine.runAndWait()
-
-    engine.say('temperature')
-    engine.runAndWait()
-    engine.say(w.get_temperature('celsius'))
-    engine.runAndWait()
-
-elif r.recognize_google(audio) in var3:
-   print("Current date and time : ")
-   print(now.strftime("The time is %H:%M"))
-   engine.say(now.strftime("The time is %H:%M"))
-   engine.runAndWait()
-
-elif r.recognize_google(audio) in cmd1:
-   webbrowser.open('www.google.com')
-
-elif r.recognize_google(audio) in cmd3:
-   jokrep = random.choice(jokes)
-   engine.say(jokrep)
-   engine.runAndWait()
-
-else:
-   engine.say("please wait")
-   engine.runAndWait()
-   print(wikipedia.summary(r.recognize_google(audio)))
-   engine.say(wikipedia.summary(r.recognize_google(audio)))
-   engine.runAndWait()
-   userInput3 = input("or else search in google")
-   webbrowser.open_new('www.google.com/search?q=' + userInput3)
